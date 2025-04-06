@@ -20,8 +20,8 @@ pipeline {
         stage('Create Docker Container') {
             steps {
                 script {
-                    // Create a Docker container from the image
-                    def containerId = sh(script: 'docker run -d my-app:latest', returnStdout: true).trim()
+                    // Run the Docker container and expose port 5000
+                    def containerId = sh(script: 'docker run -d -p 5000:5000 my-app:latest', returnStdout: true).trim()
 
                     // Print the container ID
                     echo "Docker container created with ID: ${containerId}"
