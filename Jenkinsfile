@@ -17,6 +17,18 @@ pipeline {
             }
         }
 
+        stage('Create Docker Container') {
+            steps {
+                script {
+                    // Create a Docker container from the image
+                    def containerId = sh(script: 'docker run -d my-app:latest', returnStdout: true).trim()
+
+                    // Print the container ID
+                    echo "Docker container created with ID: ${containerId}"
+                }
+            }
+        }
+
         stage('Simulate Push') {
             steps {
                 script {
