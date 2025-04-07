@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: myapp-deployment
+  namespace: my-app
+spec:
+  replicas: 3  # You can adjust this based on your needs
+  selector:
+    matchLabels:
+      app: myapp
+  template:
+    metadata:
+      labels:
+        app: myapp
+    spec:
+      containers:
+        - name: myapp-container
+          image: mandaringle/my-app:v6  # Replace with your image name and tag
+          ports:
+            - containerPort: 5000  # Adjust this if your app runs on a different port
+~                                                                                        
