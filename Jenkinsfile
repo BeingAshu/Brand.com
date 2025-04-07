@@ -60,8 +60,8 @@ pipeline {
                                  )
                     {
                     sh "docker image tag my-app:${params.DOCKER_TAG} ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}"
-                    sh "docker login -u $(env.Dockerhubuser) -p $(env.dockerHubPass)"
-                    sh "docker push  $(env.Dockerhubuser)/my-app:${params.DOCKER_TAG}"
+                    sh "docker login -u ${env.Dockerhubuser} -p ${env.dockerHubPass}"
+                    sh "docker push  ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}"
 
                     }
 
