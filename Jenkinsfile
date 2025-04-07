@@ -47,13 +47,28 @@ pipeline {
             }
         }
 
-        stage('Simulate Push') {
+        stage('Push') {
             steps {
                 script {
-                    // Simulate the Docker push by just printing "pushed"
-                    echo "Docker image tagged as my-app:latest"
-                    echo "Simulating pushing Docker image... pushed!"
-                }
+                   withCredentials(
+[usernamePassword(
+    credentialsID:"dockerhub", 
+    passwordvariable:"dockerHubPass", 
+    usernameVariable:"Dockerhubuser"
+    )
+]
+                                 )
+                    {
+                    sh "docker image tag my-app:${params.DOCKER_TAG} $(env.Dockerhubuser)/my-app:${params.DOCKER_TAG}"
+                    sh "docker login -u $(env.Dockerhubuser) -p $(env.dockerHubPass)"
+                    sh "docker push  $(env.Dockerhubuser)/my-app:${params.DOCKER_TAG}"
+
+                    }
+
+
+
+                    
+                }   
             }
         }
     }
