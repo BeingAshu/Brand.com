@@ -2,7 +2,7 @@ pipeline {
     agent any
 
     parameters{
-        string(name: "DOCKER_TAG", defaultValue: '' , description: "Setting Docker Image for Latest Push" )
+        string(name: "DOCKER_TAG", defaultValue: 'latest' , description: "Setting Docker Image for Latest Push" )
     }
 
     stages {
