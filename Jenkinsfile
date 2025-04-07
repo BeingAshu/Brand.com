@@ -7,15 +7,6 @@ pipeline {
 
     stages {
 
-        stage('Validate Parameters'){
-            steps{
-                script{
-                    if (params.DOCKER_TAG == '') {
-                        error("DOCKER TAG must be provided")
-                    }
-                }
-            }
-        }
                 
         
         stage('Checkout Code') {
