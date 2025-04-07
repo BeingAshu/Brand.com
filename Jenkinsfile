@@ -52,8 +52,8 @@ pipeline {
                 script {
                    withCredentials(
 [usernamePassword(
-    credentialsID:"dockerhub", 
-    passwordvariable:"dockerHubPass", 
+    credentialsId:"dockerhub", 
+    passwordVariable:"dockerHubPass", 
     usernameVariable:"Dockerhubuser"
     )
 ]
