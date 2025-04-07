@@ -39,7 +39,7 @@ pipeline {
             steps {
                 script {
                     // Run the Docker container and expose port 5000
-                    def containerId = sh(script: 'docker run -d -p 5000:5000 my-app:$(params.DOCKER_TAG")', returnStdout: true).trim()
+                    def containerId = sh(script: 'docker run -d -p 5000:5000 my-app:$(params.DOCKER_TAG)', returnStdout: true).trim()
 
                     // Print the container ID
                     echo "Docker container created with ID: ${containerId}"
