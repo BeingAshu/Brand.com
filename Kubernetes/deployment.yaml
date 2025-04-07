@@ -18,4 +18,4 @@ spec:
           image: mandaringle/my-app:v6  # Replace with your image name and tag
           ports:
             - containerPort: 5000  # Adjust this if your app runs on a different port
-~                                                                                        
+                                                                      
