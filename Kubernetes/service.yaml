@@ -10,4 +10,5 @@ spec:
     - protocol: TCP
       port: 80  # The port exposed by the service (accessible externally)
       targetPort: 5000  # The Flask app is running on port 5000 inside the container
-  type: ClusterIP  
+      nodePort: 30007  
+  type: NodePort    
