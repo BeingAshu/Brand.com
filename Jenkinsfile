@@ -5,6 +5,10 @@ pipeline {
         string(name: "DOCKER_TAG", defaultValue: 'latest' , description: "Setting Docker Image for Latest Push" )
     }
 
+    environment{
+        NAMESPACE = "my-app"
+    }    
+
     stages {
 
         stage('Validate Parameters'){
@@ -48,29 +52,47 @@ pipeline {
             }
         }
 
-        stage('Push') {
-            steps {
-                script {
-                   withCredentials(
-[usernamePassword(
-    credentialsId:"dockerhub", 
-    passwordVariable:"dockerHubPass", 
-    usernameVariable:"Dockerhubuser"
-    )
-]
-                                 )
-                    {
-                    sh "docker image tag my-app:${params.DOCKER_TAG} ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}"
-                    sh "docker login -u ${env.Dockerhubuser} -p ${env.dockerHubPass}"
-                    sh "docker push  ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}"
+       // stage('Push') {
+       //     steps {
+        //        script {
+        //           withCredentials(
+//[usernamePassword(
+//    credentialsId:"dockerhub", 
+  //  passwordVariable:"dockerHubPass", 
+   // usernameVariable:"Dockerhubuser"
+   // )
+//]
+  //                               )
+    //                {
+      //              sh "docker image tag my-app:${params.DOCKER_TAG} ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}"
+        //            sh "docker login -u ${env.Dockerhubuser} -p ${env.dockerHubPass}"
+          //          sh "docker push  ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}"
 
-                    }
+            //        }
 
 
 
                     
-                }   
-            }
+          //      }   
+            //}
+        //}
+
+        stage('Update Deployment YAML'){
+            sh """
+                sed -i "s|image: my-app:.*|image: ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}|" Kubernetes/deployment.yaml
+            """
+            
         }
+        //stage("Deploy to Kubernetes"){
+          //  sh "kubectl apply -f Kubernetes/deployment.yaml -n ${NAMESPACE}"
+            //sh "kubectl apply -f Kubernetes/service.yaml -n ${NAMESPACE}"
+        //}
+        
+        //stage("monitor Deployment"){
+          //  sh "kubectl rollout status deployment/my-app -n ${NAMESPACE}"
+
+        //}    
+
+        
     }
 }
