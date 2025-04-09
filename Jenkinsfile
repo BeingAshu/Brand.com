@@ -79,7 +79,7 @@ pipeline {
 
         stage('Update Deployment YAML'){
             sh """
-                sed -i "s|image: my-app:.*|image: ${env.Dockerhubuser}/my-app:${params.DOCKER_TAG}|" Kubernetes/deployment.yaml
+                sed -i "s|image: my-app:.*|image: my-app:${params.DOCKER_TAG}|" Kubernetes/deployment.yaml
             """
             
         }
