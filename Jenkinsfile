@@ -78,10 +78,11 @@ pipeline {
         //}
 
         stage('Update Deployment YAML'){
+        steps{
             sh """
                 sed -i "s|image: my-app:.*|image: my-app:${params.DOCKER_TAG}|" Kubernetes/deployment.yaml
             """
-            
+        }   
         }
         //stage("Deploy to Kubernetes"){
           //  sh "kubectl apply -f Kubernetes/deployment.yaml -n ${NAMESPACE}"
