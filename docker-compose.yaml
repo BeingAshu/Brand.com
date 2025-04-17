@@ -68,3 +68,12 @@ services:
       - 9100
     networks:
       - monitoring
+
+  grafana:
+     image: grafana/grafana-enterprise
+     container_name: grafana
+     restart: unless-stopped
+     ports:
+      - '3000:3000'
+     networks: 
+       - monitoring
